@@ -1,0 +1,1736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>KN0X.FIT - Vignesh Transformation Portal</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- FontAwesome & Inter Font -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap">
+    
+    <style>
+        :root {
+            --knox-red: #ef4444;
+            --knox-dark: #020617;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #020617; 
+            color: #f8fafc;
+            -webkit-tap-highlight-color: transparent;
+            overscroll-behavior-y: none;
+            scroll-behavior: smooth;
+        }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        .glass-header {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+        }
+        
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+            scroll-snap-type: x mandatory;
+        }
+        
+        .glass-nav > button {
+            scroll-snap-align: center;
+        }
+
+        .nav-link { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        .nav-link.active {
+            background: #ef4444;
+            color: white;
+            font-weight: 700;
+            box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
+        }
+        .nav-link:not(.active):hover {
+            background-color: #1e293b; 
+            color: #f8fafc;
+        }
+
+        .mobile-tab { transition: all 0.2s ease; position: relative; }
+        .mobile-tab.active {
+            color: white;
+            background: linear-gradient(135deg, #ef4444 0%, #b91c1c 100%);
+            border-radius: 9999px;
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+        }
+
+        .content-fade-in {
+            animation: fadeIn 0.35s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            0% { opacity: 0; transform: translateY(8px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .meal-card-done {
+            background: rgba(6, 78, 59, 0.25) !important;
+            border-color: rgba(16, 185, 129, 0.5) !important;
+        }
+
+        /* Mobile-first refinements: readable type, comfortable touch targets and no sideways page overflow. */
+        html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+        body { min-width: 320px; overflow-x: hidden; }
+        button, a, input, select, textarea { touch-action: manipulation; }
+        button, a { -webkit-tap-highlight-color: transparent; }
+        button:focus-visible, a:focus-visible { outline: 2px solid #f87171; outline-offset: 3px; }
+        img, svg, canvas { max-width: 100%; }
+        #main-content { min-width: 0; overflow-wrap: anywhere; }
+        #main-content > * { min-width: 0; }
+        .glass-nav { overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; }
+        .mobile-tab { min-height: 42px; }
+        #mobile-header-bar { padding-top: max(0.65rem, env(safe-area-inset-top)); }
+        #fab-mobile { bottom: max(1rem, env(safe-area-inset-bottom)); }
+
+        @media (max-width: 640px) {
+            body { font-size: 14px; }
+            #main-content { padding: 1rem; padding-bottom: calc(6.5rem + env(safe-area-inset-bottom)); }
+            #main-content .content-fade-in { gap: 1rem; }
+            #main-content h1 { font-size: clamp(1.45rem, 6vw, 2rem); line-height: 1.15; }
+            #main-content h2 { line-height: 1.2; }
+            #main-content h3 { line-height: 1.3; }
+            #main-content .rounded-3xl { border-radius: 1.25rem; }
+            #main-content .p-8 { padding: 1.1rem; }
+            #main-content .p-6 { padding: 1rem; }
+            #main-content .grid { grid-template-columns: minmax(0, 1fr); }
+            #main-content .flex-wrap { row-gap: 0.65rem; }
+            #main-content button, #main-content a { max-width: 100%; }
+            #main-content table { display: block; width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+            #mobile-header-bar { gap: 0.4rem; padding-left: 0.65rem; padding-right: 0.65rem; }
+            #mobile-header-bar > a { gap: 0.35rem; }
+            #mobile-header-bar > a > div:last-child { font-size: 1rem; }
+            #btn-mobile-preview { padding: 0.55rem 0.65rem; }
+            .glass-nav { padding-left: 0.75rem; padding-right: 0.75rem; }
+            .mobile-tab { padding: 0.65rem 0.85rem; font-size: 0.72rem; }
+            #fab-mobile { right: 0.75rem; gap: 0.5rem; }
+            #fab-mobile #btn-fab-preview { padding-left: 0.9rem; padding-right: 0.9rem; }
+            #sidebar { padding-bottom: env(safe-area-inset-bottom); }
+        }
+
+        @media (max-width: 380px) {
+            #mobile-header-bar > a > div:first-child { width: 1.75rem; height: 1.75rem; }
+            #mobile-header-bar > a > div:last-child { font-size: 0.9rem; }
+            #btn-mobile-preview { font-size: 0; gap: 0; width: 2.4rem; height: 2.4rem; justify-content: center; padding: 0; }
+            #btn-mobile-preview i { font-size: 0.85rem; }
+            #mobile-menu-toggle { width: 2.4rem; height: 2.4rem; }
+            #main-content { padding-left: 0.75rem; padding-right: 0.75rem; }
+        }
+
+        @media print {
+            aside, header, #mobile-header-bar, .glass-nav, button:not(.print-keep), #fab-mobile {
+                display: none !important;
+            }
+            main, #preview-modal {
+                position: static !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                background: white !important;
+                color: black !important;
+            }
+            #preview-modal * {
+                color: black !important;
+                border-color: #e2e8f0 !important;
+                background: white !important;
+            }
+        }
+    </style>
+</head>
+<body class="text-slate-100 antialiased selection:bg-red-900 selection:text-red-100 min-h-screen flex flex-col pb-20 lg:pb-0 bg-slate-950">
+
+    <!-- Mobile Header -->
+    <div class="lg:hidden sticky top-0 z-40 shadow-md">
+        <div id="mobile-header-bar" class="glass-header px-4 py-3 flex justify-between items-center">
+            <button id="mobile-menu-toggle" aria-label="Open Navigation Menu" class="text-slate-100 text-lg active:scale-95 transition-transform p-2 rounded-xl hover:bg-slate-800 flex items-center justify-center w-10 h-10 border border-slate-700/80">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+            <a href="https://kn0x.fit/" target="_blank" class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center text-white font-black italic shadow-md">K</div>
+                <div class="text-lg font-black text-white italic tracking-tighter uppercase"><span class="text-red-500">KN0X</span>.FIT</div>
+            </a>
+            <div class="flex items-center gap-1.5">
+                <button id="btn-mobile-preview" class="px-2.5 py-1.5 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold flex items-center gap-1 shadow-md active:scale-95 transition-transform">
+                    <i class="fa-solid fa-eye"></i> Preview
+                </button>
+                <button id="btn-mobile-grocery" class="w-9 h-9 rounded-xl bg-slate-800 text-white flex items-center justify-center active:scale-95 transition-transform shadow-md border border-slate-700">
+                    <i class="fa-solid fa-cart-shopping text-xs"></i>
+                </button> 
+            </div>
+        </div>
+
+        <div class="glass-nav overflow-x-auto no-scrollbar flex items-center px-3 py-2.5 gap-2 border-b border-slate-800">
+            <button data-view="dashboard" class="mobile-tab flex-shrink-0 px-4 py-2 text-xs font-bold text-slate-400 hover:bg-slate-800 rounded-full tracking-wide">Overview</button>
+            <button data-view="week1" class="mobile-tab flex-shrink-0 px-4 py-2 text-xs font-bold text-slate-400 hover:bg-slate-800 rounded-full tracking-wide">Week 01</button>
+            <button data-view="week2" class="mobile-tab flex-shrink-0 px-4 py-2 text-xs font-bold text-slate-400 hover:bg-slate-800 rounded-full tracking-wide">Week 02</button>
+            <button data-view="week3" class="mobile-tab flex-shrink-0 px-4 py-2 text-xs font-bold text-slate-400 hover:bg-slate-800 rounded-full tracking-wide">Week 03</button>
+            <button data-view="week4" class="mobile-tab flex-shrink-0 px-4 py-2 text-xs font-bold text-slate-400 hover:bg-slate-800 rounded-full tracking-wide">Week 04</button>
+            <button data-view="keyNotes" class="mobile-tab flex-shrink-0 px-4 py-2 text-xs font-bold text-slate-400 hover:bg-slate-800 rounded-full tracking-wide">Strict Rules</button>
+            <button data-view="programs" class="mobile-tab flex-shrink-0 px-4 py-2 text-xs font-bold text-slate-400 hover:bg-slate-800 rounded-full tracking-wide">Other Programs</button>
+            <button data-view="contact" class="mobile-tab flex-shrink-0 px-4 py-2 text-xs font-bold text-slate-400 hover:bg-slate-800 rounded-full tracking-wide">Contact</button>
+        </div>
+    </div>
+
+    <!-- Mobile Backdrop -->
+    <div id="mobile-overlay" class="lg:hidden fixed inset-0 bg-slate-950/80 z-40 hidden backdrop-blur-md transition-opacity"></div>
+
+    <!-- Main Layout Grid -->
+    <div class="relative min-h-screen lg:flex flex-1">
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="bg-slate-900 w-[82vw] max-w-[300px] shadow-2xl fixed top-0 left-0 h-full z-50 transform -translate-x-full transition-transform duration-300 lg:translate-x-0 lg:relative lg:flex-shrink-0 border-r border-slate-800/80 overflow-y-auto flex flex-col lg:w-[270px]">
+            <div class="py-6 px-6 flex items-center justify-between border-b border-slate-800 bg-slate-900 sticky top-0 z-10">
+                <a href="https://kn0x.fit/" target="_blank" class="flex items-center gap-2 group">
+                    <div class="w-9 h-9 rounded-xl bg-red-600 flex items-center justify-center text-white font-black text-xl italic shadow-md group-hover:scale-105 transition-transform">K</div>
+                    <div class="text-xl font-black text-white italic tracking-tighter uppercase"><span class="text-red-500">KN0X</span>.FIT</div>
+                </a>
+                <button id="sidebar-close" class="lg:hidden text-slate-400 hover:text-red-400 p-2 active:scale-90 transition-transform bg-slate-800 rounded-full">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            
+            <div class="p-4 flex-1">
+                <nav id="navigation" class="space-y-1.5">
+                    <p class="px-3 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mb-2">Overview</p>
+                    <a href="#" data-view="dashboard" class="nav-link flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 font-bold text-sm tracking-wide">
+                        <i class="fa-solid fa-chart-pie w-5 text-center text-base opacity-80"></i> Dashboard
+                    </a>
+                    
+                    <p class="px-3 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mt-6 mb-2">Month 1: Reset Phase</p>
+                    <a href="#" data-view="week1" class="nav-link flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 font-bold text-sm tracking-wide">
+                        <i class="fa-solid fa-seedling w-5 text-center text-base opacity-80 text-emerald-400"></i> W1: Gut Reset
+                    </a>
+                    <a href="#" data-view="week2" class="nav-link flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 font-bold text-sm tracking-wide">
+                        <i class="fa-solid fa-bowl-rice w-5 text-center text-base opacity-80 text-amber-400"></i> W2: Fermented Staples
+                    </a>
+                    <a href="#" data-view="week3" class="nav-link flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 font-bold text-sm tracking-wide">
+                        <i class="fa-solid fa-wheat-awn w-5 text-center text-base opacity-80 text-orange-400"></i> W3: Ancient Grains
+                    </a>
+                    <a href="#" data-view="week4" class="nav-link flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 font-bold text-sm tracking-wide">
+                        <i class="fa-solid fa-fire-flame-curved w-5 text-center text-base opacity-80 text-red-400"></i> W4: Peak Reset
+                    </a>
+                    
+                    <p class="px-3 text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mt-6 mb-2">Tools & Actions</p>
+                    <a href="#" data-view="keyNotes" class="nav-link flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 font-bold text-sm tracking-wide">
+                        <i class="fa-solid fa-shield-halved w-5 text-center text-base opacity-80 text-indigo-400"></i> Strict Rules
+                    </a>
+                    <a href="#" data-view="programs" class="nav-link flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 font-bold text-sm tracking-wide">
+                        <i class="fa-solid fa-layer-group w-5 text-center text-base opacity-80 text-amber-400"></i> Other Programs
+                    </a>
+                    <a href="#" data-view="contact" class="nav-link flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 font-bold text-sm tracking-wide">
+                        <i class="fa-solid fa-envelope w-5 text-center text-base opacity-80 text-cyan-400"></i> Contact KN0X.FIT
+                    </a>
+                    <button id="btn-sidebar-grocery" class="w-full text-left nav-link flex items-center gap-3 px-3.5 py-3 rounded-xl text-slate-300 font-bold text-sm tracking-wide">
+                        <i class="fa-solid fa-basket-shopping w-5 text-center text-base opacity-80 text-teal-400"></i> Grocery Checklist
+                    </button>
+                    <button id="btn-sidebar-preview" class="w-full text-left nav-link flex items-center gap-3 px-3.5 py-3 rounded-xl font-bold text-sm tracking-wide bg-gradient-to-r from-red-950/80 to-slate-900 border border-red-900/60 text-red-300">
+                        <i class="fa-solid fa-eye w-5 text-center text-base opacity-90 text-red-400"></i> Master Plan Preview
+                    </button>
+                </nav>
+
+                <!-- Daily Progress HUD Widget -->
+                <div class="mt-6 p-4 rounded-2xl bg-slate-950 text-white border border-slate-800 shadow-md">
+                    <div class="flex justify-between items-center mb-1">
+                        <span class="text-[10px] font-black uppercase text-emerald-400 tracking-wider flex items-center gap-1.5"><i class="fa-solid fa-list-check"></i> Today's Meals</span>
+                        <span id="sidebar-meals-count" class="text-xs font-bold text-slate-300">0 / 4 Eaten</span>
+                    </div>
+                    <div class="w-full bg-slate-800 rounded-full h-2 mb-3 overflow-hidden">
+                        <div id="sidebar-meals-progress" class="bg-emerald-400 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+
+                    <div class="flex justify-between items-center mb-1 pt-2 border-t border-slate-800/80">
+                        <span class="text-[10px] font-black uppercase text-cyan-400 tracking-wider flex items-center gap-1.5"><i class="fa-solid fa-glass-water"></i> Water Log</span>
+                        <span id="water-count-text" class="text-xs font-bold text-slate-300">0 / 4 L</span>
+                    </div>
+                    <div class="w-full bg-slate-800 rounded-full h-2 mb-3 overflow-hidden">
+                        <div id="water-progress" class="bg-cyan-400 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
+                    </div>
+                    <div class="flex gap-2">
+                        <button id="btn-add-water" class="flex-1 py-1.5 bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 text-xs font-bold rounded-lg transition-colors border border-cyan-500/30 text-center">+ 500ml</button>
+                        <button id="btn-reset-water" class="py-1.5 px-3 bg-slate-800 hover:bg-slate-700 text-slate-400 text-xs font-bold rounded-lg transition-colors">Reset</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-4 text-center text-xs text-slate-500 border-t border-slate-800 bg-slate-950">
+                <p id="sidebar-client-name" class="font-black text-slate-200 uppercase tracking-widest text-[10px]">Client: Vignesh</p>
+                <p class="font-medium text-[11px] text-slate-400 mt-0.5">South Indian Fat Loss & Recomp</p>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main id="main-content" class="flex-1 p-4 sm:p-6 md:p-8 overflow-y-auto max-w-5xl mx-auto w-full">
+            <!-- Dynamic Content Injected Here -->
+        </main>
+    </div>
+
+    <!-- Mobile Floating Action Bar -->
+    <div id="fab-mobile" class="lg:hidden fixed bottom-4 right-4 z-40 flex items-center gap-2">
+        <button id="btn-fab-water" class="w-12 h-12 rounded-full bg-cyan-600 text-white shadow-2xl flex items-center justify-center text-base active:scale-90 transition-transform border border-cyan-400/50">
+            <i class="fa-solid fa-glass-water"></i>
+        </button>
+        <button id="btn-fab-preview" class="px-4 h-12 rounded-full bg-slate-900 text-white shadow-2xl flex items-center gap-2 text-xs font-black tracking-wider uppercase active:scale-95 transition-transform border border-slate-700">
+            <i class="fa-solid fa-file-invoice text-red-500"></i> Blueprint
+        </button>
+    </div>
+
+    <!-- Grocery Checklist Modal -->
+    <div id="grocery-modal" class="fixed inset-0 bg-slate-950/80 z-50 hidden backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-slate-900 text-slate-100 rounded-3xl max-w-lg w-full max-h-[85vh] overflow-hidden flex flex-col shadow-2xl border border-slate-800">
+            <div class="p-5 bg-slate-950 text-white flex justify-between items-center border-b border-slate-800">
+                <div class="flex items-center gap-2.5">
+                    <i class="fa-solid fa-cart-flatbed text-red-500 text-xl"></i>
+                    <h3 class="font-black text-base uppercase tracking-wide">South Indian Whole-Food Grocery List</h3>
+                </div>
+                <button id="btn-close-grocery" class="text-slate-400 hover:text-white p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="p-6 overflow-y-auto space-y-4 flex-1 text-sm text-slate-300">
+                <div class="p-3 bg-red-950/50 border border-red-800 rounded-xl text-red-200 text-xs font-medium">
+                    <i class="fa-solid fa-circle-xmark mr-1 text-red-400"></i> <strong>STRICT EXCLUSIONS FOR VIGNESH:</strong> No Curd, No Lassi, No Milk, No Whey Protein Powders. 100% Whole Food Sources Only.
+                </div>
+                
+                <div>
+                    <h4 class="font-black text-xs uppercase text-red-400 tracking-wider mb-2 flex items-center gap-2"><i class="fa-solid fa-drumstick-bite"></i> Fresh Lean Whole Proteins</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center gap-2"><input type="checkbox" class="w-4 h-4 rounded text-red-600 focus:ring-red-500 bg-slate-950 border-slate-700"> <span>Fresh Chicken Breast & Mince</span></li>
+                        <li class="flex items-center gap-2"><input type="checkbox" class="w-4 h-4 rounded text-red-600 focus:ring-red-500 bg-slate-950 border-slate-700"> <span>Whole Eggs & Fresh Egg Whites (Tray of 30)</span></li>
+                        <li class="flex items-center gap-2"><input type="checkbox" class="w-4 h-4 rounded text-red-600 focus:ring-red-500 bg-slate-950 border-slate-700"> <span>Fresh Fish Fillets (Seer / Sankara / Nethili)</span></li>
+                        <li class="flex items-center gap-2"><input type="checkbox" class="w-4 h-4 rounded text-red-600 focus:ring-red-500 bg-slate-950 border-slate-700"> <span>Fresh Prawns & Squid / Calamari</span></li>
+                    </ul>
+                </div>
+
+                <div class="pt-2 border-t border-slate-800">
+                    <h4 class="font-black text-xs uppercase text-blue-400 tracking-wider mb-2 flex items-center gap-2"><i class="fa-solid fa-bowl-rice"></i> South Indian Clean Carbs & Grains</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center gap-2"><input type="checkbox" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 bg-slate-950 border-slate-700"> <span>Sona Masoori White Rice</span></li>
+                        <li class="flex items-center gap-2"><input type="checkbox" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 bg-slate-950 border-slate-700"> <span>Sweet Potatoes & Tapioca (Maravalli Kizhangu)</span></li>
+                        <li class="flex items-center gap-2"><input type="checkbox" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 bg-slate-950 border-slate-700"> <span>Ragi Flour (Finger Millet) & Rolled Oats</span></li>
+                        <li class="flex items-center gap-2"><input type="checkbox" class="w-4 h-4 rounded text-blue-600 focus:ring-blue-500 bg-slate-950 border-slate-700"> <span>Idli Batter / Dosas & Sambar Veggies</span></li>
+                    </ul>
+                </div>
+
+                <div class="pt-2 border-t border-slate-800">
+                    <h4 class="font-black text-xs uppercase text-emerald-400 tracking-wider mb-2 flex items-center gap-2"><i class="fa-solid fa-leaf"></i> Poriyal Veggies, Spices & Fats</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center gap-2"><input type="checkbox" class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 bg-slate-950 border-slate-700"> <span>Carrots, Beans, Cabbage, Snake Gourd, Ash Gourd</span></li>
+                        <li class="flex items-center gap-2"><input type="checkbox" class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 bg-slate-950 border-slate-700"> <span>Ripe Papaya Fruit & Apples</span></li>
+                        <li class="flex items-center gap-2"><input type="checkbox" class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 bg-slate-950 border-slate-700"> <span>Pure Cow Ghee & Cold-Pressed Coconut Oil</span></li>
+                        <li class="flex items-center gap-2"><input type="checkbox" class="w-4 h-4 rounded text-emerald-600 focus:ring-emerald-500 bg-slate-950 border-slate-700"> <span>Black Pepper, Tamarind, Garlic (For Rasam)</span></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="p-4 bg-slate-950 border-t border-slate-800 text-center">
+                <button id="btn-print-grocery" class="px-5 py-2.5 bg-red-600 hover:bg-red-500 text-white font-bold text-xs rounded-xl transition-colors inline-flex items-center gap-2 shadow-md">
+                    <i class="fa-solid fa-print"></i> Print Grocery Checklist
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Master Plan Preview Modal -->
+    <div id="preview-modal" class="fixed inset-0 bg-slate-950/85 z-50 hidden backdrop-blur-md flex items-center justify-center p-3 sm:p-6">
+        <div class="bg-slate-900 rounded-3xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-2xl border border-slate-800">
+            <div class="p-5 bg-slate-950 text-white flex justify-between items-center border-b border-slate-800 shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-red-600 flex items-center justify-center text-white font-black text-lg"><i class="fa-solid fa-file-invoice"></i></div>
+                    <div>
+                        <h3 class="font-black text-base uppercase tracking-wide leading-none">Vignesh Master Blueprint</h3>
+                        <p class="text-[10px] text-slate-400 font-bold mt-1">KN0X.FIT • Month 1 Whole-Food South Indian Recomp</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button id="btn-print-preview" class="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 shadow-md">
+                        <i class="fa-solid fa-print"></i> Print / Save PDF
+                    </button>
+                    <button id="btn-close-preview" class="text-slate-400 hover:text-white p-2 rounded-full"><i class="fa-solid fa-xmark text-lg"></i></button>
+                </div>
+            </div>
+
+            <div id="preview-document-body" class="p-6 sm:p-8 overflow-y-auto space-y-8 flex-1 bg-slate-900 font-sans text-slate-100">
+                <!-- Javascript populates summary -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Food Prep Modal -->
+    <div id="food-preview-modal" class="fixed inset-0 bg-slate-950/80 z-50 hidden backdrop-blur-md flex items-center justify-center p-4">
+        <div class="bg-slate-900 rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border border-slate-800 text-slate-100">
+            <div class="p-5 bg-slate-950 text-white flex justify-between items-center border-b border-slate-800">
+                <h4 id="food-modal-title" class="font-black text-base uppercase tracking-wide">Food Details</h4>
+                <button id="btn-close-food-modal" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="p-6 space-y-4">
+                <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800">
+                    <p class="text-[10px] font-black uppercase text-slate-400 tracking-wider mb-1">Serving & Portion</p>
+                    <p id="food-modal-qty" class="text-lg font-black text-white"></p>
+                </div>
+                <div>
+                    <p class="text-[10px] font-black uppercase text-red-400 tracking-wider mb-1">Preparation & Cooking Guidelines</p>
+                    <p id="food-modal-tip" class="text-xs text-slate-300 leading-relaxed font-medium bg-red-950/40 p-3 rounded-xl border border-red-900/60"></p>
+                </div>
+                <a id="food-modal-yt" href="#" target="_blank" class="w-full py-3 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-md">
+                    <i class="fa-brands fa-youtube text-base"></i> Watch Recipe Video
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Chart.js Script -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Application Script -->
+    <script>
+        const dietPlanData = {
+            client: {
+                name: "Vignesh",
+                goal: "Fat Loss & Body Recomposition",
+                age: 28,
+                gender: "Male",
+                currentWeight: "91.9 kg",
+                height: "170 cm (5ft 7in)",
+                bmr: 1848,
+                bmi: 31.8,
+                tdee: 2540, 
+                calorieTarget: "~1,950 – 2,080 kcal (Month 1)", 
+                dietaryPreference: "Non-Vegetarian (South Indian)",
+                dietaryRestriction: "Strictly NO CURD / No Milk / No Protein Powders (100% Whole Food)",
+                activityLevel: "1-3 days/week Lifting (Intermediate)",
+                lifestyle: "Consumes alcohol & smokes"
+            },
+            weeks: {
+                week1: {
+                    title: "Week 01: Gut Repair & Whole-Food Base",
+                    subtitle: "Target: ~2,066 kcal | ~159.6g Protein",
+                    focus: "Re-establishing metabolic baseline after crash dieting. Fixing protein at ~1.6g/kg without supplements or curd.",
+                    totals: { p: "159.6g", c: "241.0g", f: "48.1g", fiber: "28.9g", kcal: "2066" },
+                    meals: [
+                        {
+                            time: "Meal 1 (Pre/Post-Workout)",
+                            icon: "fa-solid fa-egg",
+                            items: [
+                                { name: "Egg Burji (6 Whites + 2 Whole Eggs)", quantity: "8 Eggs Total", link: "Egg Kalaki Recipe South Indian" },
+                                { name: "Rolled Oats", quantity: "60g", link: "Oats Recipe" },
+                                { name: "Banana", quantity: "1 Medium (100g)", link: "Banana" },
+                                { name: "Pure Ghee / Olive Oil", quantity: "1 tsp (5g)", link: "Ghee Benefits" }
+                            ],
+                            macros: { p: "43.4g", c: "65.2g", f: "19.4g", fiber: "8.6g", kcal: "608" },
+                            micros: "Choline, Potassium, Vitamin B12, Magnesium. 100% bioavailable whole egg amino acids.",
+                            swap: {
+                                name: "Alt: Oats Egg Pancake",
+                                items: [
+                                    { name: "Oats Egg Pancake (6 Whites + 2 Whole + 60g Oats)", quantity: "1 Large Pancake", link: "Oats Egg Podimas" },
+                                    { name: "Pure Ghee / Olive Oil for Tava", quantity: "1 tsp (5g)", link: "Ghee" }
+                                ],
+                                macros: { p: "43.4g", c: "65.2g", f: "19.4g", fiber: "8.6g", kcal: "608" }
+                            }
+                        },
+                        {
+                            time: "Meal 2 (Lunch)",
+                            icon: "fa-solid fa-sun",
+                            items: [
+                                { name: "Cooked White Rice", quantity: "200g Cooked", link: "White Rice" },
+                                { name: "South Indian Chicken Breast Curry (Tomato-Ginger Gravy)", quantity: "150g Chicken", link: "South Indian Chicken Breast Curry" },
+                                { name: "Carrot-Beans Sabzi / Curry", quantity: "150g", link: "Carrot Beans Poriyal" },
+                                { name: "Coconut Oil / Olive Oil / Sunflower Oil", quantity: "1 tsp (5g)", link: "Coconut Oil" }
+                            ],
+                            macros: { p: "53.5g", c: "66.5g", f: "11.4g", fiber: "6.3g", kcal: "608" },
+                            micros: "Curcumin, Iron, Zinc, Vitamin C. High-thermic whole chicken protein.",
+                            swap: {
+                                name: "Alt: Grilled Tandoori Chicken & Rice",
+                                items: [
+                                    { name: "Grilled Tandoori Chicken Breast", quantity: "150g", link: "Tandoori Chicken" },
+                                    { name: "Cooked White Rice", quantity: "200g", link: "Rice" },
+                                    { name: "Ridge Gourd Sabzi", quantity: "150g", link: "Ridge Gourd Poriyal" },
+                                    { name: "Coconut Oil / Olive Oil / Sunflower Oil", quantity: "1 tsp (5g)", link: "Oil" }
+                                ],
+                                macros: { p: "53.5g", c: "66.5g", f: "11.4g", fiber: "6.3g", kcal: "608" }
+                            }
+                        },
+                        {
+                            time: "Meal 3 (Evening Snack)",
+                            icon: "fa-solid fa-mug-hot",
+                            items: [
+                                { name: "Boiled Sweet Potato (with chaat masala & lemon)", quantity: "150g", link: "Sweet Potato Chaat" },
+                                { name: "Boiled Egg Whites", quantity: "4 Whites", link: "Boiled Eggs" },
+                                { name: "Fresh Papaya / Guava / Apple", quantity: "150g", link: "Papaya Benefits" },
+                                { name: "Raw Almonds", quantity: "12g (8-10 nuts)", link: "Almonds" }
+                            ],
+                            macros: { p: "20.1g", c: "48.4g", f: "6.8g", fiber: "7.9g", kcal: "331" },
+                            micros: "Vitamin A, Papain Digestive Enzymes, Vitamin E. Papain speeds protein digestion without curd.",
+                            swap: {
+                                name: "Alt: Boiled Bengal Gram (Kadle Bele Usli) & Eggs",
+                                items: [
+                                    { name: "Boiled Bengal Gram (Kadle Bele Usli)", quantity: "150g", link: "Maravalli Kizhangu" },
+                                    { name: "Boiled Whole Eggs (1 Whole + 2 Whites)", quantity: "3 Eggs", link: "Boiled Eggs" },
+                                    { name: "Fresh Papaya / Guava / Apple", quantity: "150g", link: "Papaya" }
+                                ],
+                                macros: { p: "20.1g", c: "48.4g", f: "6.8g", fiber: "7.9g", kcal: "331" }
+                            }
+                        },
+                        {
+                            time: "Meal 4 (Dinner)",
+                            icon: "fa-solid fa-moon",
+                            items: [
+                                { name: "Cooked White Rice", quantity: "180g Cooked", link: "White Rice" },
+                                { name: "Fish Curry", quantity: "150g Fish", link: "South Indian Fish Curry" },
+                                { name: "Cabbage Sabzi", quantity: "150g", link: "Cabbage Poriyal" },
+                                { name: "Pure Ghee / Olive Oil", quantity: "1 tsp (5g)", link: "Ghee" },
+                                { name: "Warm Pepper-Tomato Tamarind Rasam", quantity: "1 Bowl (200ml)", link: "Pepper Rasam Recipe" }
+                            ],
+                            macros: { p: "42.6g", c: "60.9g", f: "10.5g", fiber: "6.1g", kcal: "519" },
+                            micros: "Omega-3 EPA/DHA, Iodine, Selenium. Hot Pepper Rasam stimulates stomach gastric acid.",
+                            swap: {
+                                name: "Alt: Chicken Liver Fry",
+                                items: [
+                                    { name: "Chicken Liver Fry", quantity: "150g", link: "Chicken Liver Pepper Fry" },
+                                    { name: "Cooked White Rice", quantity: "180g", link: "Rice" },
+                                    { name: "Steamed Veggies + Hot Tomato Rasam / Sambar", quantity: "1 Bowl", link: "Tomato Rasam" }
+                                ],
+                                macros: { p: "42.6g", c: "60.9g", f: "10.5g", fiber: "6.1g", kcal: "519" }
+                            }
+                        },
+                        { 
+                            time: "Week 01 Daily Total", 
+                            icon: "fa-solid fa-flag-checkered",
+                            item: "Daily Target Hit", 
+                            macros: { p: "159.6g", c: "241.0g", f: "48.1g", fiber: "28.9g", kcal: "2066" },
+                            micros: "Metabolism restored from crash diet. 100% Whole food, zero curd, zero protein powder.", 
+                            isTotal: true
+                        }
+                    ]
+                },
+                week2: {
+                    title: "Week 02: Fermented Staples & High Satiety",
+                    subtitle: "Target: ~1,996 kcal | ~158.0g Protein",
+                    focus: "Integrating traditional fermented rice/urad batter (Idlis/Dosas) for gut health without curd.",
+                    totals: { p: "158.0g", c: "230.5g", f: "44.8g", fiber: "25.8g", kcal: "1996" },
+                    meals: [
+                        {
+                            time: "Meal 1 (Pre/Post-Workout)",
+                            icon: "fa-solid fa-bowl-food",
+                            items: [
+                                { name: "Steamed Soft Idlis", quantity: "3 Idlis (150g)", link: "Soft Idli Recipe" },
+                                { name: "Veggie Sambar", quantity: "150g", link: "South Indian Sambar" },
+                                { name: "Scrambled Eggs / Burji (6 Whites + 2 Whole Eggs)", quantity: "8 Eggs Total", link: "Muttai Podimas" },
+                                { name: "Pure Ghee / Olive Oil", quantity: "1 tsp (5g)", link: "Ghee" }
+                            ],
+                            macros: { p: "44.2g", c: "47.0g", f: "17.8g", fiber: "5.9g", kcal: "538" },
+                            micros: "Bioavailable aminos, Folate, Vitamin B12. Natural fermentation improves nutrient bio-absorption.",
+                            swap: {
+                                name: "Alt: Plain Crisp Dosas & Egg Burji / Egg Chilli (No Oil)",
+                                items: [
+                                    { name: "Crisp Plain Dosas", quantity: "2 Dosas (120g)", link: "Crisp Dosa Recipe" },
+                                    { name: "Veggie Sambar", quantity: "150g", link: "Sambar" },
+                                    { name: "Egg Burji / Egg Chilli (No Oil)", quantity: "6 Whites + 2 Whole", link: "Egg Podimas" }
+                                ],
+                                macros: { p: "44.2g", c: "47.0g", f: "17.8g", fiber: "5.9g", kcal: "538" }
+                            }
+                        },
+                        {
+                            time: "Meal 2 (Lunch)",
+                            icon: "fa-solid fa-sun",
+                            items: [
+                                { name: "Cooked White Rice", quantity: "220g Cooked", link: "White Rice" },
+                                { name: "Pepper Chicken Breast Chukka", quantity: "150g Chicken", link: "Pepper Chicken Chukka" },
+                                { name: "Snake Gourd Sabzi / Vegetable Sabzi", quantity: "150g", link: "Snake Gourd Poriyal" },
+                                { name: "Coconut Oil / Olive Oil / Sunflower Oil", quantity: "1 tsp (5g)", link: "Coconut Oil" }
+                            ],
+                            macros: { p: "54.0g", c: "72.1g", f: "11.5g", fiber: "6.5g", kcal: "634" },
+                            micros: "Piperine, Niacin, Vitamin B6, Iron. Piperine in black pepper enhances nutrient transport.",
+                            swap: {
+                                name: "Alt: Fish Pepper Fry / Chicken Pepper & Rice",
+                                items: [
+                                    { name: "Fish Pepper Fry / Chicken Pepper", quantity: "150g", link: "Fish Pepper Fry" },
+                                    { name: "Cooked Rice", quantity: "220g", link: "Rice" },
+                                    { name: "Cabbage-Peas Sabzi / Curry", quantity: "150g", link: "Cabbage Poriyal" }
+                                ],
+                                macros: { p: "54.0g", c: "72.1g", f: "11.5g", fiber: "6.5g", kcal: "634" }
+                            }
+                        },
+                        {
+                            time: "Meal 3 (Evening Snack)",
+                            icon: "fa-solid fa-mug-hot",
+                            items: [
+                                { name: "Boiled Sweet Potato", quantity: "150g", link: "Sweet Potato" },
+                                { name: "Fresh Papaya / Guava / Apple", quantity: "1 Medium (120g)", link: "Apple Benefits" },
+                                { name: "Boiled Egg Whites", quantity: "4 Whites", link: "Egg Whites" },
+                                { name: "Walnuts", quantity: "10g", link: "Walnuts" }
+                            ],
+                            macros: { p: "18.7g", c: "49.0g", f: "7.3g", fiber: "7.3g", kcal: "324" },
+                            micros: "Pectin Fiber, ALA Omega-3s, Vitamin C. Soluble pectin fiber supports healthy gut motility.",
+                            swap: {
+                                name: "Alt: Steamed Sweet Corn & Fresh Papaya / Guava / Apple",
+                                items: [
+                                    { name: "Steamed Sweet Corn", quantity: "150g", link: "Steamed Corn" },
+                                    { name: "Boiled Egg Whites", quantity: "4 Whites", link: "Egg Whites" },
+                                    { name: "Fresh Papaya / Guava / Apple", quantity: "150g", link: "Papaya" },
+                                    { name: "Raw Almonds", quantity: "10g", link: "Almonds" }
+                                ],
+                                macros: { p: "18.7g", c: "49.0g", f: "7.3g", fiber: "7.3g", kcal: "324" }
+                            }
+                        },
+                        {
+                            time: "Meal 4 (Dinner)",
+                            icon: "fa-solid fa-moon",
+                            items: [
+                                { name: "Cooked White Rice", quantity: "180g Cooked", link: "Rice" },
+                                { name: "Prawns (Garlic-Tamarind Gravy)", quantity: "150g Prawns", link: "Prawns Thokku" },
+                                { name: "Steamed Veggie Poriyal", quantity: "150g", link: "Veggie Poriyal" },
+                                { name: "Pure Ghee / Olive Oil", quantity: "1 tsp (5g)", link: "Ghee" },
+                                { name: "Warm Pepper Rasam", quantity: "1 Bowl", link: "Rasam" }
+                            ],
+                            macros: { p: "41.1g", c: "62.4g", f: "8.2g", fiber: "6.1g", kcal: "500" },
+                            micros: "Phosphorus, Copper, Zinc, Calcium. Lean seafood provides high amino density with minimal fat.",
+                            swap: {
+                                name: "Alt: South Indian Egg Curry & Rice",
+                                items: [
+                                    { name: "Egg Curry (2 Whole + 3 Whites in Tomato Gravy)", quantity: "5 Eggs Total", link: "South Indian Egg Curry" },
+                                    { name: "Cooked White Rice", quantity: "180g", link: "Rice" },
+                                    { name: "Steamed Veggies", quantity: "150g", link: "Poriyal" }
+                                ],
+                                macros: { p: "41.1g", c: "62.4g", f: "8.2g", fiber: "6.1g", kcal: "500" }
+                            }
+                        },
+                        { 
+                            time: "Week 02 Daily Total", 
+                            icon: "fa-solid fa-flag-checkered",
+                            item: "Daily Target Hit", 
+                            macros: { p: "158.0g", c: "230.5g", f: "44.8g", fiber: "25.8g", kcal: "1996" },
+                            micros: "High satiety whole foods maintain steady fat loss while keeping workouts strong.", 
+                            isTotal: true
+                        }
+                    ]
+                },
+                week3: {
+                    title: "Week 03: Ancient Grains (Ragi) & Micronutrients",
+                    subtitle: "Target: ~1,957 kcal | ~157.7g Protein",
+                    focus: "Introducing Ragi (Finger Millet) for high calcium, iron, and slow-release complex carbs.",
+                    totals: { p: "157.7g", c: "219.4g", f: "45.0g", fiber: "26.3g", kcal: "1957" },
+                    meals: [
+                        {
+                            time: "Meal 1 (Pre/Post-Workout)",
+                            icon: "fa-solid fa-wheat-awt",
+                            items: [
+                                { name: "Crisp Ragi Dosas (from 50g Ragi Flour)", quantity: "2 Dosas", link: "Ragi Dosa Recipe" },
+                                { name: "Omelette (6 Whites + 2 Whole Eggs)", quantity: "8 Eggs Total", link: "South Indian Omelette" },
+                                { name: "Pure Ghee / Olive Oil", quantity: "1 tsp (5g)", link: "Ghee" }
+                            ],
+                            macros: { p: "44.8g", c: "39.0g", f: "12.3g", fiber: "5.8g", kcal: "451" },
+                            micros: "Calcium (Ragi), Iron, High Choline. Ragi delivers 3x more calcium than milk.",
+                            swap: {
+                                name: "Alt: Savory Ragi Malt & Eggs",
+                                items: [
+                                    { name: "Savory Ragi Malt Porridge (50g Ragi in water with mustard/cumin)", quantity: "1 Large Bowl", link: "Salt Ragi Malt" },
+                                    { name: "Boiled Eggs (2 Whole + 6 Whites)", quantity: "8 Eggs", link: "Boiled Eggs" }
+                                ],
+                                macros: { p: "44.8g", c: "39.0g", f: "12.3g", fiber: "5.8g", kcal: "451" }
+                            }
+                        },
+                        {
+                            time: "Meal 2 (Lunch)",
+                            icon: "fa-solid fa-sun",
+                            items: [
+                                { name: "Cooked White Rice", quantity: "220g Cooked", link: "Rice" },
+                                { name: "Chicken Breast Curry (Light Coconut-Tomato Base)", quantity: "160g Chicken", link: "Chicken Curry" },
+                                { name: "Ash Gourd Sabzi / Carrot Beans Sabzi", quantity: "150g", link: "Ash Gourd Poriyal" },
+                                { name: "Coconut Oil / Olive Oil / Sunflower Oil", quantity: "1 tsp (5g)", link: "Coconut Oil" }
+                            ],
+                            macros: { p: "57.1g", c: "72.1g", f: "12.0g", fiber: "6.5g", kcal: "650" },
+                            micros: "High Thermic Protein, Potassium, Zinc. Ash Gourd provides cooling hydration.",
+                            swap: {
+                                name: "Alt: South Indian Chicken Keema Fry",
+                                items: [
+                                    { name: "Minced Chicken Keema Fry (Dry Spiced)", quantity: "160g", link: "Chicken Keema South Indian" },
+                                    { name: "Cooked White Rice", quantity: "220g", link: "Rice" },
+                                    { name: "Veggie Sabzi", quantity: "150g", link: "Poriyal" }
+                                ],
+                                macros: { p: "57.1g", c: "72.1g", f: "12.0g", fiber: "6.5g", kcal: "650" }
+                            }
+                        },
+                        {
+                            time: "Meal 3 (Evening Snack)",
+                            icon: "fa-solid fa-mug-hot",
+                            items: [
+                                { name: "Boiled Sweet Potato", quantity: "150g", link: "Sweet Potato" },
+                                { name: "Boiled Egg Whites", quantity: "4 Whites", link: "Egg Whites" },
+                                { name: "Fresh Papaya / Guava / Apple", quantity: "150g", link: "Papaya" },
+                                { name: "Raw Almonds", quantity: "12g", link: "Almonds" }
+                            ],
+                            macros: { p: "20.1g", c: "48.4g", f: "6.8g", fiber: "7.9g", kcal: "331" },
+                            micros: "Vitamin A, Papain, Monounsaturated Fats. Consistent Papain intake keeps gut flat.",
+                            swap: {
+                                name: "Alt: Boiled Raw Banana Chaat / Cucumber Chaat",
+                                items: [
+                                    { name: "Boiled Raw Banana Chaat / Cucumber Chaat", quantity: "150g", link: "Vazhaikkai Poriyal" },
+                                    { name: "Boiled Egg Whites", quantity: "4 Whites", link: "Egg Whites" },
+                                    { name: "Fresh Papaya / Guava / Apple", quantity: "150g", link: "Guava" }
+                                ],
+                                macros: { p: "20.1g", c: "48.4g", f: "6.8g", fiber: "7.9g", kcal: "331" }
+                            }
+                        },
+                        {
+                            time: "Meal 4 (Dinner)",
+                            icon: "fa-solid fa-moon",
+                            items: [
+                                { name: "Cooked White Rice", quantity: "180g Cooked", link: "Rice" },
+                                { name: "Fish Curry", quantity: "150g Fish", link: "Fish Curry" },
+                                { name: "Drumstick Leaves Palya / Palak Sabzi", quantity: "150g", link: "Murungai Keerai Poriyal" },
+                                { name: "Pure Ghee / Olive Oil", quantity: "1 tsp (5g)", link: "Ghee" },
+                                { name: "Warm Pepper Rasam", quantity: "1 Bowl", link: "Rasam" }
+                            ],
+                            macros: { p: "42.6g", c: "60.9g", f: "10.5g", fiber: "6.1g", kcal: "519" },
+                            micros: "Folate, Iron, Polyphenols, Omega-3s. Moringa leaves deliver exceptional micronutrient density.",
+                            swap: {
+                                name: "Alt: Squid / Calamari Roast & Rice",
+                                items: [
+                                    { name: "Squid / Calamari Roast", quantity: "150g", link: "Squid Roast South Indian" },
+                                    { name: "Cooked Rice", quantity: "180g", link: "Rice" },
+                                    { name: "Veggie Palya + Warm Rasam", quantity: "150g", link: "Rasam" }
+                                ],
+                                macros: { p: "42.6g", c: "60.9g", f: "10.5g", fiber: "6.1g", kcal: "519" }
+                            }
+                        },
+                        { 
+                            time: "Week 03 Daily Total", 
+                            icon: "fa-solid fa-flag-checkered",
+                            item: "Daily Target Hit", 
+                            macros: { p: "157.7g", c: "219.4g", f: "45.0g", fiber: "26.3g", kcal: "1957" },
+                            micros: "Ancient grains and moringa greens maximize micronutrient density.", 
+                            isTotal: true
+                        }
+                    ]
+                },
+                week4: {
+                    title: "Week 04: Peak Reset & Recomp Transition",
+                    subtitle: "Target: ~2,117 kcal | ~163.3g Protein",
+                    focus: "Stepping calories up to ~2,117 kcal to prepare for Month 2 fat loss acceleration.",
+                    totals: { p: "163.3g", c: "248.6g", f: "48.7g", fiber: "29.3g", kcal: "2117" },
+                    meals: [
+                        {
+                            time: "Meal 1 (Pre/Post-Workout)",
+                            icon: "fa-solid fa-bolt",
+                            items: [
+                                { name: "Rolled Oats", quantity: "60g", link: "Oats" },
+                                { name: "Banana", quantity: "1 Medium (100g)", link: "Banana" },
+                                { name: "Egg Scramble (6 Whites + 2 Whole Eggs with Pepper)", quantity: "8 Eggs Total", link: "Egg Scramble" },
+                                { name: "Pure Ghee / Olive Oil", quantity: "1 tsp (5g)", link: "Ghee" }
+                            ],
+                            macros: { p: "43.4g", c: "65.2g", f: "19.4g", fiber: "8.6g", kcal: "608" },
+                            micros: "Pre-workout Glycogen, Magnesium, Vitamin B6. Maximize workout strength.",
+                            swap: {
+                                name: "Alt: Egg Uttapam (No Whey)",
+                                items: [
+                                    { name: "Egg Uttapam (6 Whites + 2 Whole over 120g batter)", quantity: "2 Small Uttapams", link: "Egg Uttapam" },
+                                    { name: "Pure Ghee / Olive Oil", quantity: "1 tsp (5g)", link: "Ghee" }
+                                ],
+                                macros: { p: "43.4g", c: "65.2g", f: "19.4g", fiber: "8.6g", kcal: "608" }
+                            }
+                        },
+                        {
+                            time: "Meal 2 (Lunch)",
+                            icon: "fa-solid fa-sun",
+                            items: [
+                                { name: "Cooked White Rice", quantity: "220g Cooked", link: "Rice" },
+                                { name: "Grilled South Indian Lemon-Chili Chicken Breast", quantity: "160g Chicken", link: "Lemon Chili Chicken South Indian" },
+                                { name: "Cabbage-Peas Sabzi", quantity: "150g", link: "Cabbage Poriyal" },
+                                { name: "Pure Ghee / Olive Oil", quantity: "1 tsp (5g)", link: "Ghee" }
+                            ],
+                            macros: { p: "57.2g", c: "72.1g", f: "12.0g", fiber: "6.5g", kcal: "650" },
+                            micros: "Sulforaphane, Niacin, Phosphorus. Lemon acid improves meat iron absorption.",
+                            swap: {
+                                name: "Alt: South Indian Pepper Chicken Roast",
+                                items: [
+                                    { name: "Pepper Chicken Roast", quantity: "160g", link: "Pepper Chicken Roast" },
+                                    { name: "Cooked White Rice", quantity: "220g", link: "Rice" },
+                                    { name: "Beetroot Palya", quantity: "150g", link: "Beetroot Poriyal" }
+                                ],
+                                macros: { p: "57.2g", c: "72.1g", f: "12.0g", fiber: "6.5g", kcal: "650" }
+                            }
+                        },
+                        {
+                            time: "Meal 3 (Evening Snack)",
+                            icon: "fa-solid fa-mug-hot",
+                            items: [
+                                { name: "Boiled Sweet Potato", quantity: "160g", link: "Sweet Potato" },
+                                { name: "Boiled Egg Whites", quantity: "4 Whites", link: "Egg Whites" },
+                                { name: "Fresh Papaya / Guava / Apple", quantity: "150g", link: "Papaya" },
+                                { name: "Raw Almonds", quantity: "12g", link: "Almonds" }
+                            ],
+                            macros: { p: "20.1g", c: "50.4g", f: "6.8g", fiber: "8.1g", kcal: "340" },
+                            micros: "Papain, Vitamin E, Sustained Glucose. Zero digestive bloat.",
+                            swap: {
+                                name: "Alt: Tava Paneer & Fresh Papaya / Guava / Apple",
+                                items: [
+                                    { name: "Boiled Sweet Potato", quantity: "150g", link: "Sweet Potato" },
+                                    { name: "Low-Fat Tava Roasted Paneer (with chaat masala)", quantity: "100g", link: "Tava Paneer" },
+                                    { name: "Fresh Papaya / Guava / Apple", quantity: "150g", link: "Papaya" }
+                                ],
+                                macros: { p: "20.1g", c: "50.4g", f: "6.8g", fiber: "8.1g", kcal: "340" }
+                            }
+                        },
+                        {
+                            time: "Meal 4 (Dinner)",
+                            icon: "fa-solid fa-moon",
+                            items: [
+                                { name: "Cooked White Rice", quantity: "180g Cooked", link: "Rice" },
+                                { name: "Chettinad Pepper Fish Curry", quantity: "150g Fish", link: "Chettinad Fish Curry" },
+                                { name: "Carrot-Beans Sabzi", quantity: "150g", link: "Poriyal" },
+                                { name: "Coconut Oil / Olive Oil / Sunflower Oil", quantity: "1 tsp (5g)", link: "Coconut Oil" },
+                                { name: "Warm Pepper-Tomato Rasam", quantity: "1 Bowl", link: "Rasam" }
+                            ],
+                            macros: { p: "42.6g", c: "60.9g", f: "10.5g", fiber: "6.1g", kcal: "519" },
+                            micros: "Electrolytes, Piperine, Iodine. Rasam ensures seamless overnight digestion.",
+                            swap: {
+                                name: "Alt: Crab Curry & Rice",
+                                items: [
+                                    { name: "South Indian Crab Curry / Fish Curry", quantity: "150g", link: "Crab Curry South Indian" },
+                                    { name: "Cooked Rice", quantity: "180g", link: "Rice" },
+                                    { name: "Veggie Poriyal + Hot Rasam", quantity: "1 Bowl", link: "Rasam" }
+                                ],
+                                macros: { p: "42.6g", c: "60.9g", f: "10.5g", fiber: "6.1g", kcal: "519" }
+                            }
+                        },
+                        { 
+                            time: "Week 04 Daily Total", 
+                            icon: "fa-solid fa-flag-checkered",
+                            item: "Daily Target Hit", 
+                            macros: { p: "163.3g", c: "248.6g", f: "48.7g", fiber: "29.3g", kcal: "2117" },
+                            micros: "Peak Month 1 reset achieved. Ready for Month 2 Acceleration (~1,820 kcal).", 
+                            isTotal: true
+                        }
+                    ]
+                }
+            }
+        };
+
+        const activeSwaps = {};
+        const completedMeals = {};
+        const portionScales = {};
+        let waterLogs = 0;
+        let searchFilterQuery = "";
+        let macroChart = null;
+        let staircaseChart = null;
+
+        const mainContent = document.getElementById('main-content');
+        const navigation = document.getElementById('navigation');
+        const sidebar = document.getElementById('sidebar');
+        const menuToggle = document.getElementById('mobile-menu-toggle');
+        const sidebarClose = document.getElementById('sidebar-close');
+        const overlay = document.getElementById('mobile-overlay');
+
+        function updateCompletedMealsHUD() {
+            const keys = Object.keys(completedMeals).filter(k => completedMeals[k] === true);
+            const count = keys.length;
+            const progress = (count / 4) * 100;
+            
+            const txt = document.getElementById('sidebar-meals-count');
+            const bar = document.getElementById('sidebar-meals-progress');
+            if (txt) txt.innerText = `${count} / 4 Eaten`;
+            if (bar) bar.style.width = `${progress}%`;
+        }
+
+        function renderDashboard() {
+            const { client } = dietPlanData;
+            
+            document.getElementById('sidebar-client-name').innerText = `Client: ${client.name}`;
+
+            mainContent.innerHTML = `
+                <div class="content-fade-in w-full space-y-6">
+                    <!-- Hero Banner -->
+                    <div class="bg-slate-900 rounded-3xl p-6 sm:p-8 text-white shadow-2xl relative overflow-hidden border border-slate-800">
+                        <div class="absolute -top-24 -right-24 w-72 h-72 bg-red-600 rounded-full blur-[110px] opacity-35"></div>
+                        <div class="relative z-10">
+                            <div class="flex items-center gap-2 mb-2">
+                                <span class="bg-red-500/20 text-red-400 text-[10px] font-black px-2.5 py-1 rounded-full uppercase tracking-wider border border-red-500/30">
+                                    <i class="fa-solid fa-shield-halved mr-1"></i> South Indian Whole-Food Protocol
+                                </span>
+                            </div>
+                            <h2 class="text-2xl sm:text-4xl font-black tracking-tight leading-tight mb-3">Welcome <span class="text-red-500 italic">${client.name}</span></h2>
+                            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-3xl">
+                                Your <strong class="text-red-400 uppercase">3-Month Progressive Recomposition Plan</strong> is active. We have eliminated the severe crash deficit (1,450 kcal) and food violations (curd/lassi). We are re-establishing your metabolic baseline with <strong class="text-emerald-400">100% whole foods (~160g protein)</strong> tailored to your South Indian preferences.
+                            </p>
+                            <div class="mt-4 p-3 bg-red-950/60 border border-red-800/80 rounded-2xl flex items-center gap-3">
+                                <i class="fa-solid fa-circle-info text-red-400 text-lg"></i>
+                                <p class="text-xs text-red-200 font-medium">
+                                    <strong class="font-black text-white uppercase tracking-wider">MONTH 1 PLAN ACTIVE:</strong> We are currently providing your <strong class="text-white">Month 1 (Reset) Plan</strong> below. The Month 2 (Acceleration) and Month 3 (Deep Shred) plans will be customized and provided based on your Month 1 progress and check-in measurements!
+                                </p>
+                            </div>
+                            <div class="mt-4 flex flex-wrap gap-2">
+                                <button id="btn-hero-preview" class="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-bold transition-all shadow-md flex items-center gap-2">
+                                    <i class="fa-solid fa-file-pdf"></i> Preview Master Blueprint
+                                </button>
+                                <button id="btn-hero-grocery" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-xl text-xs font-bold transition-all border border-slate-700 flex items-center gap-2">
+                                    <i class="fa-solid fa-cart-shopping"></i> View Grocery List
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Why Previous Diet Failed Section -->
+                    <div class="bg-gradient-to-br from-red-950 via-slate-900 to-slate-950 text-white p-6 sm:p-8 rounded-3xl border border-red-900/60 shadow-xl relative overflow-hidden">
+                        <div class="flex items-center justify-between mb-4 border-b border-red-900/50 pb-3">
+                            <h3 class="text-base sm:text-lg font-black uppercase tracking-wide text-red-400 flex items-center gap-2">
+                                <i class="fa-solid fa-triangle-exclamation text-red-500"></i> Why The Previous Diet Plan Failed
+                            </h3>
+                            <span class="text-[10px] font-black uppercase tracking-widest bg-red-500/20 text-red-300 px-3 py-1 rounded-full border border-red-500/30">Diagnostic Report</span>
+                        </div>
+
+                        <!-- Previous Crash Breakdown Tree -->
+                        <div class="bg-slate-950/90 p-4 rounded-2xl border border-red-900/40 mb-6 font-mono text-xs text-red-200 leading-relaxed shadow-inner">
+                            <p class="font-bold text-white mb-1 uppercase tracking-wider text-[11px]"><i class="fa-solid fa-bug text-red-500 mr-1.5"></i> Previous Crash Diet (~1,450 kcal | 76g Protein)</p>
+                            <p class="text-slate-300">├── <strong class="text-red-400">1,100 kcal Deficit</strong> ──> Metabolic slowdown, fatigue, extreme hunger & bingeing</p>
+                            <p class="text-slate-300">├── <strong class="text-red-400">76g Protein (0.8g/kg)</strong> ──> Muscle loss, soft physique, zero satiety</p>
+                            <p class="text-slate-300">└── <strong class="text-red-400">Included Curd/Lassi</strong> ──> Violated explicit food restriction (No Curd)</p>
+                        </div>
+
+                        <!-- 4 Detailed Root Cause Cards -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-6 h-6 rounded-full bg-red-600/30 text-red-400 flex items-center justify-center font-black text-xs border border-red-500/30">1</span>
+                                    <h4 class="font-bold text-white text-xs uppercase tracking-wide">Extreme Caloric Crash (~1,400–1,500 kcal)</h4>
+                                </div>
+                                <p class="text-[11px] text-slate-300 leading-relaxed pt-1">
+                                    A deficit of over 1,000+ calories below your TDEE (~2,540 kcal) forced your body into severe metabolic adaptation. Extreme crash diets elevate cortisol, increase fluid retention, trigger intense hunger binges, and stall fat loss within 2–3 weeks.
+                                </p>
+                            </div>
+
+                            <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-6 h-6 rounded-full bg-red-600/30 text-red-400 flex items-center justify-center font-black text-xs border border-red-500/30">2</span>
+                                    <h4 class="font-bold text-white text-xs uppercase tracking-wide">Inadequate Protein (~76g / 0.8g per kg)</h4>
+                                </div>
+                                <p class="text-[11px] text-slate-300 leading-relaxed pt-1">
+                                    For a 91.9 kg lifting male, 76g of protein is grossly inadequate to preserve lean mass during fat loss. This causes muscle wasting instead of fat loss, leading to a "skinny-fat" appearance.
+                                </p>
+                            </div>
+
+                            <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-6 h-6 rounded-full bg-red-600/30 text-red-400 flex items-center justify-center font-black text-xs border border-red-500/30">3</span>
+                                    <h4 class="font-bold text-white text-xs uppercase tracking-wide">Disregard for Preferences & Allergies</h4>
+                                </div>
+                                <p class="text-[11px] text-slate-300 leading-relaxed pt-1">
+                                    The previous plan explicitly prescribed salted lassi/buttermilk containing curd, directly ignoring your intake check-in form instructions.
+                                </p>
+                            </div>
+
+                            <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 space-y-1">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-6 h-6 rounded-full bg-red-600/30 text-red-400 flex items-center justify-center font-black text-xs border border-red-500/30">4</span>
+                                    <h4 class="font-bold text-white text-xs uppercase tracking-wide">Lack of Progressive Phasing</h4>
+                                </div>
+                                <p class="text-[11px] text-slate-300 leading-relaxed pt-1">
+                                    Dropping directly to 1,400 kcal leaves zero room to adjust when fat loss inevitably plateaus, killing your long-term adherence.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stat Cards Grid -->
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+                        <div class="bg-slate-900 p-4 rounded-2xl shadow-sm border border-slate-800 flex items-center gap-3">
+                            <div class="bg-blue-500/20 text-blue-400 w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-bold border border-blue-500/30"><i class="fa-solid fa-weight-scale"></i></div>
+                            <div>
+                                <p class="text-[9px] text-slate-400 uppercase font-black tracking-wider">Current Weight</p>
+                                <p class="text-lg font-black text-white">${client.currentWeight} <span class="text-[10px] font-bold text-amber-400">BMI ${client.bmi}</span></p>
+                            </div>
+                        </div>
+                        <div class="bg-slate-900 p-4 rounded-2xl shadow-sm border border-slate-800 flex items-center gap-3">
+                            <div class="bg-orange-500/20 text-orange-400 w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-bold border border-orange-500/30"><i class="fa-solid fa-fire"></i></div>
+                            <div>
+                                <p class="text-[9px] text-slate-400 uppercase font-black tracking-wider">BMR Rate</p>
+                                <p class="text-lg font-black text-white">${client.bmr} <span class="text-[10px] font-normal text-slate-400">kcal</span></p>
+                            </div>
+                        </div>
+                        <div class="bg-slate-900 p-4 rounded-2xl shadow-sm border border-slate-800 flex items-center gap-3">
+                            <div class="bg-emerald-500/20 text-emerald-400 w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-bold border border-emerald-500/30"><i class="fa-solid fa-bolt"></i></div>
+                            <div>
+                                <p class="text-[9px] text-slate-400 uppercase font-black tracking-wider">TDEE Est.</p>
+                                <p class="text-lg font-black text-white">${client.tdee} <span class="text-[10px] font-normal text-slate-400">kcal</span></p>
+                            </div>
+                        </div>
+                        <div class="bg-gradient-to-br from-red-600 to-red-700 text-white p-4 rounded-2xl shadow-md border border-red-800 flex items-center gap-3">
+                            <div class="bg-white/20 w-10 h-10 rounded-xl flex items-center justify-center shrink-0 font-bold"><i class="fa-solid fa-arrow-trend-up"></i></div>
+                            <div>
+                                <p class="text-[9px] text-red-100 uppercase font-black tracking-wider">Month 1 Target</p>
+                                <p class="text-xs font-black">${client.calorieTarget}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Strict Restriction Warning Banner -->
+                    <div class="p-4 rounded-2xl bg-amber-950/40 border border-amber-800/80 flex items-start gap-3">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-400 text-lg mt-0.5"></i>
+                        <div class="text-xs text-amber-200 leading-relaxed">
+                            <strong class="font-black uppercase tracking-wider text-amber-400 block mb-0.5">Strict Restriction Compliance Verified:</strong>
+                            ${client.dietaryRestriction}. No lassi, curd, milk, whey powder, or processed shakes are present in any meal. All ~160g protein is derived strictly from whole eggs, fresh chicken breast, seer fish, prawns, and liver.
+                        </div>
+                    </div>
+
+                    <!-- Client Profile & Macro Chart -->
+                    <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+                        <div class="bg-slate-900 p-6 rounded-3xl border border-slate-800 shadow-sm lg:col-span-2">
+                            <div class="flex justify-between items-center mb-4">
+                                <h3 class="text-base font-black text-white uppercase tracking-wide flex items-center gap-2">
+                                    <i class="fa-solid fa-user-astronaut text-red-500"></i> Profile
+                                </h3>
+                            </div>
+                            <ul class="space-y-3 text-xs text-slate-300">
+                                <li class="flex justify-between border-b border-slate-800 pb-2">
+                                    <span class="font-bold text-slate-500 uppercase text-[10px]">Name</span> 
+                                    <span class="font-black text-white">${client.name} (${client.age}y)</span>
+                                </li>
+                                <li class="flex justify-between border-b border-slate-800 pb-2">
+                                    <span class="font-bold text-slate-500 uppercase text-[10px]">Height / Weight</span> 
+                                    <span class="font-black text-white">${client.height} • ${client.currentWeight}</span>
+                                </li>
+                                <li class="flex justify-between border-b border-slate-800 pb-2">
+                                    <span class="font-bold text-slate-500 uppercase text-[10px]">Primary Goal</span> 
+                                    <span class="font-black text-red-400">${client.goal}</span>
+                                </li>
+                                <li class="flex justify-between border-b border-slate-800 pb-2">
+                                    <span class="font-bold text-slate-500 uppercase text-[10px]">Cuisine Preference</span> 
+                                    <span class="font-black text-white">${client.dietaryPreference}</span>
+                                </li>
+                                <li class="flex justify-between pt-1">
+                                    <span class="font-bold text-slate-500 uppercase text-[10px]">Activity Level</span> 
+                                    <span class="font-black text-white">${client.activityLevel}</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-slate-900 p-6 rounded-3xl border border-slate-800 shadow-sm lg:col-span-3 flex flex-col justify-center">
+                            <h3 class="text-base font-black text-white mb-4 uppercase tracking-wide flex items-center gap-2">
+                                <i class="fa-solid fa-chart-pie text-red-500"></i> Month 1 Macro Distribution
+                            </h3>
+                            <div class="h-56 relative w-full flex items-center justify-center">
+                                <canvas id="macroChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3-Month Caloric Staircase Chart & Cards -->
+                    <div class="bg-slate-900 p-6 rounded-3xl border border-slate-800 shadow-sm space-y-6">
+                        <div class="flex flex-wrap justify-between items-center gap-2">
+                            <h3 class="text-base font-black text-white uppercase tracking-wide flex items-center gap-2">
+                                <i class="fa-solid fa-stairs text-red-500"></i> 3-Month Progressive Transformation Staircase
+                            </h3>
+                            <span class="text-[10px] font-black uppercase bg-emerald-500/20 text-emerald-400 px-3 py-1 rounded-full border border-emerald-500/30">Providing Month 01 Now</span>
+                        </div>
+
+                        <div class="h-48 w-full relative">
+                            <canvas id="staircaseChart"></canvas>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div class="p-4 rounded-2xl bg-emerald-950/40 border-2 border-emerald-500 relative overflow-hidden shadow-md">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-[10px] font-black uppercase text-emerald-300 bg-emerald-900/80 px-2.5 py-0.5 rounded-md border border-emerald-700">Month 1 (ACTIVE PLAN)</span>
+                                    <i class="fa-solid fa-circle-check text-emerald-400 text-sm"></i>
+                                </div>
+                                <h4 class="font-black text-white text-base mt-2">Metabolic Reset</h4>
+                                <p class="text-xs text-slate-300 mt-1">~2,036 kcal/day • ~160g Protein</p>
+                                <p class="text-[11px] text-emerald-200 font-medium mt-3 leading-relaxed">Fixes metabolic damage, eliminates bloating, and establishes steady whole-food digestion.</p>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 opacity-80">
+                                <span class="text-[10px] font-black uppercase text-slate-400 bg-slate-800 px-2 py-0.5 rounded">Month 2 (Unlocks Next)</span>
+                                <h4 class="font-black text-white text-base mt-2">Fat Loss Acceleration</h4>
+                                <p class="text-xs text-slate-400 mt-1">~1,820 kcal/day • ~158g Protein</p>
+                                <p class="text-[11px] text-slate-400 font-medium mt-3 leading-relaxed">Will be unlocked & adjusted based on your Month 1 progress check-in.</p>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 opacity-80">
+                                <span class="text-[10px] font-black uppercase text-slate-400 bg-slate-800 px-2 py-0.5 rounded">Month 3 (Final Peak)</span>
+                                <h4 class="font-black text-white text-base mt-2">Deep Shred & Recomp</h4>
+                                <p class="text-xs text-slate-400 mt-1">~1,650 kcal/day • ~156g Protein</p>
+                                <p class="text-[11px] text-slate-400 font-medium mt-3 leading-relaxed">Final peak fat oxidation phase to reveal maximum muscle definition.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            initCharts(); 
+        }
+
+        function initCharts() {
+            // Macro Doughnut Chart
+            const canvasMacro = document.getElementById('macroChart');
+            if (canvasMacro && typeof Chart !== 'undefined') {
+                if (macroChart) { macroChart.destroy(); }
+                const ctx = canvasMacro.getContext('2d');
+                macroChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Whole Protein (~160g)', 'Clean Carbs (~235g)', 'Healthy Fats (~46g)'],
+                        datasets: [{
+                            data: [160 * 4, 235 * 4, 46 * 9],
+                            backgroundColor: ['#ef4444', '#3b82f6', '#f59e0b'],
+                            borderWidth: 3,
+                            borderColor: '#0f172a'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'right',
+                                labels: {
+                                    font: { size: 11, family: "'Inter', sans-serif", weight: '700' },
+                                    color: '#f8fafc',
+                                    padding: 15
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Caloric Staircase Chart
+            const canvasStair = document.getElementById('staircaseChart');
+            if (canvasStair && typeof Chart !== 'undefined') {
+                if (staircaseChart) { staircaseChart.destroy(); }
+                const ctx = canvasStair.getContext('2d');
+                staircaseChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Prev Crash', 'Month 1 Reset', 'Month 2 Accel', 'Month 3 Shred'],
+                        datasets: [
+                            {
+                                label: 'Calorie Target (kcal)',
+                                data: [1450, 2036, 1820, 1650],
+                                borderColor: '#ef4444',
+                                backgroundColor: 'rgba(239, 68, 68, 0.15)',
+                                borderWidth: 3,
+                                fill: true,
+                                tension: 0.2,
+                                pointBackgroundColor: ['#f87171', '#10b981', '#3b82f6', '#ef4444'],
+                                pointRadius: 6
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            y: {
+                                min: 1200,
+                                max: 2300,
+                                grid: { color: '#1e293b' },
+                                ticks: { color: '#94a3b8', font: { family: "'Inter', sans-serif", size: 10 } }
+                            },
+                            x: {
+                                grid: { display: false },
+                                ticks: { color: '#f8fafc', font: { family: "'Inter', sans-serif", size: 10, weight: '700' } }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        function calculateMealMacros(baseMacros, scaleMultiplier = 1.0) {
+            const parseNum = (val) => parseFloat(val) || 0;
+            return {
+                p: (parseNum(baseMacros.p) * scaleMultiplier).toFixed(1) + 'g',
+                c: (parseNum(baseMacros.c) * scaleMultiplier).toFixed(1) + 'g',
+                f: (parseNum(baseMacros.f) * scaleMultiplier).toFixed(1) + 'g',
+                fiber: (parseNum(baseMacros.fiber || '6') * scaleMultiplier).toFixed(1) + 'g',
+                kcal: Math.round(parseNum(baseMacros.kcal) * scaleMultiplier)
+            };
+        }
+
+        function renderWeek(weekKey) {
+            const weekData = dietPlanData.weeks[weekKey];
+            if (!weekData) return;
+
+            // Compute Filtered Meals
+            const query = searchFilterQuery.trim().toLowerCase();
+            const filteredMeals = weekData.meals.filter(meal => {
+                if (meal.isTotal) return true;
+                if (!query) return true;
+                const itemsStr = meal.items.map(i => i.name).join(' ').toLowerCase();
+                const swapItemsStr = meal.swap ? meal.swap.items.map(i => i.name).join(' ').toLowerCase() : '';
+                return itemsStr.includes(query) || swapItemsStr.includes(query) || meal.time.toLowerCase().includes(query);
+            });
+
+            mainContent.innerHTML = `
+                <div class="content-fade-in w-full space-y-6">
+                    <!-- Week Header -->
+                    <div class="bg-slate-900 p-6 rounded-3xl border border-slate-800 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div>
+                            <span class="text-[10px] font-black uppercase text-red-400 tracking-wider bg-red-950/60 px-2.5 py-1 rounded-full border border-red-900/80">${weekData.subtitle}</span>
+                            <h2 class="text-2xl font-black text-white mt-2">${weekData.title}</h2>
+                            <p class="text-xs text-slate-300 mt-1 max-w-2xl">${weekData.focus}</p>
+                        </div>
+                        <div class="flex items-center gap-2 w-full md:w-auto">
+                            <button id="btn-phase-preview" class="px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-xl text-xs font-bold flex items-center gap-2 shrink-0 shadow-md">
+                                <i class="fa-solid fa-eye"></i> Full Plan View
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Search / Filter Bar -->
+                    <div class="bg-slate-900 p-3 rounded-2xl border border-slate-800 flex items-center gap-3 shadow-sm">
+                        <i class="fa-solid fa-magnifying-glass text-slate-500 pl-2"></i>
+                        <input id="input-search-meals" type="text" value="${searchFilterQuery}" placeholder="Search ingredients (e.g. Eggs, Chicken, Rice, Fish, Rasam)..." class="flex-1 bg-transparent text-xs font-medium text-slate-100 placeholder-slate-500 focus:outline-none">
+                        ${searchFilterQuery ? '<button id="btn-clear-search" class="text-xs text-slate-400 hover:text-red-400 font-bold px-2">Clear</button>' : ''}
+                    </div>
+
+                    <!-- Meals List -->
+                    <div class="space-y-5">
+                        ${filteredMeals.map((meal, mealIndex) => {
+                            if (meal.isTotal) {
+                                return `
+                                    <div class="bg-slate-900 text-white p-6 rounded-3xl border border-slate-800 shadow-xl">
+                                        <div class="flex justify-between items-center mb-4">
+                                            <h3 class="font-black text-lg uppercase flex items-center gap-2">
+                                                <i class="${meal.icon} text-red-500"></i> ${meal.time}
+                                            </h3>
+                                            <span class="bg-red-500/20 text-red-400 text-xs font-bold px-3 py-1 rounded-full border border-red-500/30">Target Hit</span>
+                                        </div>
+                                        <div class="grid grid-cols-5 gap-2 text-center mb-3">
+                                            <div class="bg-slate-950 p-2 rounded-xl border border-slate-800">
+                                                <p class="text-[8px] text-red-400 font-bold uppercase">Protein</p>
+                                                <p class="font-black text-sm text-white">${meal.macros.p}</p>
+                                            </div>
+                                            <div class="bg-slate-950 p-2 rounded-xl border border-slate-800">
+                                                <p class="text-[8px] text-blue-400 font-bold uppercase">Carbs</p>
+                                                <p class="font-black text-sm text-white">${meal.macros.c}</p>
+                                            </div>
+                                            <div class="bg-slate-950 p-2 rounded-xl border border-slate-800">
+                                                <p class="text-[8px] text-amber-400 font-bold uppercase">Fats</p>
+                                                <p class="font-black text-sm text-white">${meal.macros.f}</p>
+                                            </div>
+                                            <div class="bg-slate-950 p-2 rounded-xl border border-slate-800">
+                                                <p class="text-[8px] text-emerald-400 font-bold uppercase">Fiber</p>
+                                                <p class="font-black text-sm text-white">${meal.macros.fiber}</p>
+                                            </div>
+                                            <div class="bg-red-600 p-2 rounded-xl">
+                                                <p class="text-[8px] text-red-100 font-bold uppercase">Calories</p>
+                                                <p class="font-black text-sm text-white">${meal.macros.kcal}</p>
+                                            </div>
+                                        </div>
+                                        <p class="text-xs text-slate-400 italic">${meal.micros}</p>
+                                    </div>
+                                `;
+                            }
+
+                            const mealKey = `${weekKey}_${mealIndex}`;
+                            const isSwapped = activeSwaps[mealKey] === true;
+                            const isDone = completedMeals[mealKey] === true;
+                            const scaleMult = portionScales[mealKey] || 1.0;
+
+                            const baseMeal = (isSwapped && meal.swap) ? meal.swap : meal;
+                            const scaledMacros = calculateMealMacros(baseMeal.macros, scaleMult);
+
+                            return `
+                                <div id="card_${mealKey}" class="bg-slate-900 rounded-3xl p-6 border transition-all ${isDone ? 'meal-card-done shadow-md' : 'border-slate-800 shadow-sm'} relative overflow-hidden">
+                                    <div class="flex flex-wrap justify-between items-center mb-4 gap-2">
+                                        <div class="flex items-center gap-2">
+                                            <button data-done-key="${mealKey}" class="btn-toggle-done w-7 h-7 rounded-full border-2 flex items-center justify-center transition-all ${isDone ? 'bg-emerald-500 border-emerald-500 text-white' : 'border-slate-700 text-transparent hover:border-emerald-500'}">
+                                                <i class="fa-solid fa-check text-xs"></i>
+                                            </button>
+                                            <h3 class="font-black text-base text-white flex items-center gap-2">
+                                                <i class="${meal.icon} ${isDone ? 'text-emerald-400' : 'text-red-500'}"></i> ${meal.time}
+                                                ${isSwapped ? '<span class="text-[10px] font-bold bg-indigo-950 text-indigo-300 px-2 py-0.5 rounded-md border border-indigo-800">Swapped</span>' : ''}
+                                                ${isDone ? '<span class="text-[10px] font-bold bg-emerald-950 text-emerald-300 px-2 py-0.5 rounded-md border border-emerald-800">Eaten ✓</span>' : ''}
+                                            </h3>
+                                        </div>
+                                        
+                                        <div class="flex items-center gap-2">
+                                            <!-- Portion Scale Controls -->
+                                            <div class="flex items-center bg-slate-950 rounded-xl p-1 border border-slate-800 text-xs font-bold">
+                                                <span class="text-[9px] text-slate-500 px-1 uppercase">Scale</span>
+                                                <button data-scale-key="${mealKey}" data-scale-val="${(scaleMult - 0.1).toFixed(1)}" class="btn-change-scale w-5 h-5 bg-slate-800 rounded-lg text-slate-300 hover:bg-slate-700 flex items-center justify-center shadow-xs">-</button>
+                                                <span class="px-1.5 text-slate-200 text-[11px]">${Math.round(scaleMult * 100)}%</span>
+                                                <button data-scale-key="${mealKey}" data-scale-val="${(scaleMult + 0.1).toFixed(1)}" class="btn-change-scale w-5 h-5 bg-slate-800 rounded-lg text-slate-300 hover:bg-slate-700 flex items-center justify-center shadow-xs">+</button>
+                                            </div>
+
+                                            ${meal.swap ? `
+                                                <button data-swap-key="${mealKey}" class="btn-toggle-swap text-xs font-bold px-3 py-1.5 rounded-xl border transition-all ${isSwapped ? 'bg-indigo-600 text-white border-indigo-700' : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border-slate-700'}">
+                                                    <i class="fa-solid fa-rotate mr-1"></i> ${isSwapped ? 'Primary' : 'Alt Swap'}
+                                                </button>
+                                            ` : ''}
+                                        </div>
+                                    </div>
+
+                                    <!-- Food items list -->
+                                    <ul class="space-y-2.5 mb-5">
+                                        ${baseMeal.items.map(item => `
+                                            <li class="flex justify-between items-center p-2.5 rounded-xl bg-slate-950/70 border border-slate-800/80">
+                                                <div class="flex items-center gap-2">
+                                                    <i class="fa-solid fa-circle-check text-emerald-400 text-xs"></i>
+                                                    <span class="font-bold text-xs text-slate-200">${item.name}</span>
+                                                </div>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="text-xs font-bold text-slate-400 bg-slate-900 px-2 py-1 rounded-md border border-slate-800">${item.quantity}</span>
+                                                    <button data-food-name="${encodeURIComponent(item.name)}" data-food-qty="${encodeURIComponent(item.quantity)}" data-food-link="${encodeURIComponent(item.link)}" class="btn-food-info text-slate-500 hover:text-red-400 p-1">
+                                                        <i class="fa-solid fa-circle-info text-xs"></i>
+                                                    </button>
+                                                </div>
+                                            </li>
+                                        `).join('')}
+                                    </ul>
+
+                                    <!-- Dynamic Scaled Macro HUD -->
+                                    <div class="grid grid-cols-5 gap-1.5 text-center text-xs">
+                                        <div class="p-2 rounded-xl bg-red-950/40 border border-red-900/60">
+                                            <p class="text-[8px] font-bold text-red-400 uppercase">Protein</p>
+                                            <p class="font-black text-red-300">${scaledMacros.p}</p>
+                                        </div>
+                                        <div class="p-2 rounded-xl bg-blue-950/40 border border-blue-900/60">
+                                            <p class="text-[8px] font-bold text-blue-400 uppercase">Carbs</p>
+                                            <p class="font-black text-blue-300">${scaledMacros.c}</p>
+                                        </div>
+                                        <div class="p-2 rounded-xl bg-amber-950/40 border border-amber-900/60">
+                                            <p class="text-[8px] font-bold text-amber-400 uppercase">Fats</p>
+                                            <p class="font-black text-amber-300">${scaledMacros.f}</p>
+                                        </div>
+                                        <div class="p-2 rounded-xl bg-emerald-950/40 border border-emerald-900/60">
+                                            <p class="text-[8px] font-bold text-emerald-400 uppercase">Fiber</p>
+                                            <p class="font-black text-emerald-300">${scaledMacros.fiber}</p>
+                                        </div>
+                                        <div class="p-2 rounded-xl bg-slate-950 border border-slate-800 text-white">
+                                            <p class="text-[8px] font-bold text-slate-400 uppercase">Calories</p>
+                                            <p class="font-black">${scaledMacros.kcal}</p>
+                                        </div>
+                                    </div>
+
+                                    ${meal.micros ? `
+                                        <p class="mt-4 text-xs text-slate-400 bg-slate-950/60 p-3 rounded-xl border border-slate-800">
+                                            <i class="fa-solid fa-lightbulb text-amber-400 mr-1"></i> ${meal.micros}
+                                        </p>
+                                    ` : ''}
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+            `;
+
+            // Setup Search listener
+            const searchInput = document.getElementById('input-search-meals');
+            if (searchInput) {
+                searchInput.addEventListener('input', (e) => {
+                    searchFilterQuery = e.target.value;
+                    renderWeek(weekKey);
+                });
+            }
+            const clearBtn = document.getElementById('btn-clear-search');
+            if (clearBtn) {
+                clearBtn.addEventListener('click', () => {
+                    searchFilterQuery = "";
+                    renderWeek(weekKey);
+                });
+            }
+        }
+
+        function renderKeyNotes() {
+            mainContent.innerHTML = `
+                <div class="content-fade-in w-full space-y-6">
+                    <div class="bg-slate-900 p-6 rounded-3xl border border-slate-800 shadow-sm">
+                        <span class="text-[10px] font-black uppercase text-red-400 tracking-wider">Crucial Guidelines</span>
+                        <h2 class="text-2xl font-black text-white mt-1">Strict Rules</h2>
+                    </div>
+
+                    <div class="bg-slate-900 text-white p-6 rounded-3xl border border-slate-800 shadow-xl space-y-4">
+                        <h3 class="font-black text-base uppercase text-red-400 flex items-center gap-2">
+                            <i class="fa-solid fa-shield-halved"></i> Strict Rules
+                        </h3>
+                        <ul class="space-y-3.5 text-xs text-slate-300 leading-relaxed">
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-circle-check text-red-500 mt-0.5"></i>
+                                <span><strong class="text-white">Strict NO CURD / NO MILK / NO WHEY Rule:</strong> As noted in your intake form, curd causes digestive distress for you. All protein comes from whole egg whites, whole eggs, chicken breast, seer fish, and prawns.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-circle-check text-red-500 mt-0.5"></i>
+                                <span><strong class="text-white">Warm Pepper Rasam Strategy:</strong> Consume 1 bowl of warm Pepper-Tomato Tamarind Rasam with or right after dinner. Tamarind and black pepper stimulate gastric juice production, helping digest meat proteins efficiently without needing probiotic dairy.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-circle-check text-red-500 mt-0.5"></i>
+                                <span><strong class="text-white">Egg Whites Preparation:</strong> Scramble egg whites using South Indian style (Muttai Podimas / Egg Kalaki) with onions, green chilies, curry leaves, and black pepper for high flavor without adding extra fat calories.</span>
+                            </li>
+                            <li class="flex items-start gap-2.5">
+                                <i class="fa-solid fa-circle-check text-red-500 mt-0.5"></i>
+                                <span><strong class="text-white">Oil Measurement Precision:</strong> Always use a standard measuring spoon for Ghee or Coconut Oil (1 tsp = 5g). Never free-pour oil directly into cooking pans.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderProgramsPage() {
+            mainContent.innerHTML = `
+                <div class="content-fade-in w-full space-y-6">
+                    <section class="relative overflow-hidden rounded-3xl border border-red-900/50 bg-gradient-to-br from-red-950 via-slate-900 to-slate-950 p-7 sm:p-10 shadow-xl">
+                        <div class="absolute -right-16 -top-16 h-56 w-56 rounded-full bg-red-600/20 blur-3xl"></div>
+                        <div class="relative z-10 max-w-3xl">
+                            <span class="inline-flex items-center gap-2 rounded-full border border-red-500/30 bg-red-500/10 px-3 py-1 text-[10px] font-black uppercase tracking-[.18em] text-red-300"><i class="fa-solid fa-dumbbell"></i> KN0X.FIT Programs</span>
+                            <h2 class="mt-4 text-3xl sm:text-4xl font-black tracking-tight text-white">Choose your next <span class="text-red-500">level.</span></h2>
+                            <p class="mt-3 max-w-2xl text-sm leading-6 text-slate-300">Explore the fitness services available on the main KN0X.FIT website. Select a program to view the latest details and enrolment options there.</p>
+                            <a href="https://kn0x.fit/" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center gap-2 rounded-xl bg-red-600 px-5 py-3 text-xs font-black uppercase tracking-wide text-white shadow-lg transition hover:bg-red-500">Explore all programs <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                    </section>
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        <article class="group rounded-2xl border border-slate-800 bg-slate-900 p-6 transition hover:-translate-y-1 hover:border-red-500/50 hover:shadow-xl hover:shadow-red-950/20">
+                            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-xl text-emerald-400"><i class="fa-solid fa-apple-whole"></i></div>
+                            <h3 class="mt-4 text-lg font-black text-white">Personalized Diet Plan</h3><p class="mt-2 text-sm leading-6 text-slate-400">A nutrition-focused option built around your goals, food preferences and routine.</p>
+                            <a href="https://kn0x.fit/" target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-red-400 hover:text-red-300">View on KN0X.FIT <i class="fa-solid fa-arrow-right"></i></a>
+                        </article>
+                        <article class="group rounded-2xl border border-slate-800 bg-slate-900 p-6 transition hover:-translate-y-1 hover:border-red-500/50 hover:shadow-xl hover:shadow-red-950/20">
+                            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-500/10 text-xl text-blue-400"><i class="fa-solid fa-dumbbell"></i></div>
+                            <h3 class="mt-4 text-lg font-black text-white">Personalized Workout Plan</h3><p class="mt-2 text-sm leading-6 text-slate-400">Training guidance designed to help structure your workouts around your fitness objective.</p>
+                            <a href="https://kn0x.fit/" target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-red-400 hover:text-red-300">View on KN0X.FIT <i class="fa-solid fa-arrow-right"></i></a>
+                        </article>
+                        <article class="group rounded-2xl border border-slate-800 bg-slate-900 p-6 transition hover:-translate-y-1 hover:border-red-500/50 hover:shadow-xl hover:shadow-red-950/20">
+                            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-red-500/10 text-xl text-red-400"><i class="fa-solid fa-bullseye"></i></div>
+                            <h3 class="mt-4 text-lg font-black text-white">Complete Transformation</h3><p class="mt-2 text-sm leading-6 text-slate-400">A combined approach to training and nutrition for a more coordinated fitness journey.</p>
+                            <a href="https://kn0x.fit/" target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-red-400 hover:text-red-300">View on KN0X.FIT <i class="fa-solid fa-arrow-right"></i></a>
+                        </article>
+                        <article class="group rounded-2xl border border-slate-800 bg-slate-900 p-6 transition hover:-translate-y-1 hover:border-red-500/50 hover:shadow-xl hover:shadow-red-950/20">
+                            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/10 text-xl text-amber-400"><i class="fa-solid fa-heart-pulse"></i></div>
+                            <h3 class="mt-4 text-lg font-black text-white">General Fitness Plan</h3><p class="mt-2 text-sm leading-6 text-slate-400">A general fitness option for building consistency and maintaining an active routine.</p>
+                            <a href="https://kn0x.fit/" target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-red-400 hover:text-red-300">View on KN0X.FIT <i class="fa-solid fa-arrow-right"></i></a>
+                        </article>
+                    </div>
+                    <p class="rounded-xl border border-slate-800 bg-slate-900/70 p-4 text-xs leading-5 text-slate-400"><i class="fa-solid fa-circle-info mr-1 text-red-400"></i> Program descriptions here are brief summaries. Visit the official website for current inclusions, pricing, availability and full program details.</p>
+                </div>`;
+        }
+
+        function renderContactPage() {
+            mainContent.innerHTML = `
+                <div class="content-fade-in w-full space-y-6">
+                    <section class="relative overflow-hidden rounded-3xl border border-slate-800 bg-slate-900 p-7 sm:p-10 shadow-xl">
+                        <div class="absolute -right-10 -top-10 h-48 w-48 rounded-full bg-cyan-500/10 blur-3xl"></div>
+                        <div class="relative z-10">
+                            <span class="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-[10px] font-black uppercase tracking-[.18em] text-cyan-300"><i class="fa-solid fa-headset"></i> We're here to help</span>
+                            <h2 class="mt-4 text-3xl sm:text-4xl font-black tracking-tight text-white">Let's talk <span class="text-red-500">fitness.</span></h2>
+                            <p class="mt-3 max-w-2xl text-sm leading-6 text-slate-300">Have a question about a plan, coaching, or getting started? Use the official KN0X.FIT contact page so you can access the latest contact details and send your enquiry.</p>
+                            <a href="https://kn0x.fit/contact" target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center gap-2 rounded-xl bg-red-600 px-5 py-3 text-xs font-black uppercase tracking-wide text-white shadow-lg transition hover:bg-red-500">Open contact page <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                        </div>
+                    </section>
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        <article class="rounded-2xl border border-slate-800 bg-slate-900 p-6"><div class="flex h-11 w-11 items-center justify-center rounded-xl bg-red-500/10 text-lg text-red-400"><i class="fa-solid fa-message"></i></div><h3 class="mt-4 font-black text-white">Ask about a plan</h3><p class="mt-2 text-sm leading-6 text-slate-400">Ask which service best fits your goals, schedule and preferences.</p><a href="https://kn0x.fit/contact" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-red-400">Contact KN0X.FIT <i class="fa-solid fa-arrow-right"></i></a></article>
+                        <article class="rounded-2xl border border-slate-800 bg-slate-900 p-6"><div class="flex h-11 w-11 items-center justify-center rounded-xl bg-cyan-500/10 text-lg text-cyan-400"><i class="fa-solid fa-globe"></i></div><h3 class="mt-4 font-black text-white">Official website</h3><p class="mt-2 text-sm leading-6 text-slate-400">Browse the main website for services, program information and updates.</p><a href="https://kn0x.fit/" target="_blank" rel="noopener noreferrer" class="mt-4 inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-red-400">Visit KN0X.FIT <i class="fa-solid fa-arrow-right"></i></a></article>
+                    </div>
+                    <div class="rounded-2xl border border-amber-500/20 bg-amber-500/5 p-4 text-xs leading-5 text-slate-400"><i class="fa-solid fa-circle-info mr-1 text-amber-400"></i> For accuracy, contact details are not duplicated here; open the official contact page for the current information.</div>
+                </div>`;
+        }
+
+        function renderFullDocumentPreview() {
+            const docBody = document.getElementById('preview-document-body');
+            const { client, weeks } = dietPlanData;
+
+            let html = `
+                <div class="bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-800 shadow-sm text-slate-100 space-y-6">
+                    <div class="border-b border-slate-800 pb-6 flex flex-wrap justify-between items-center gap-4">
+                        <div>
+                            <p class="text-[10px] font-black uppercase text-red-400 tracking-widest">KN0X.FIT Master Client Blueprint</p>
+                            <h1 class="text-2xl sm:text-3xl font-black text-white">${client.name} — South Indian Recomp</h1>
+                            <p class="text-xs text-slate-400 font-bold mt-1">${client.age} yrs • ${client.height} • ${client.currentWeight} • Goal: Fat Loss & Recomp</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="px-3 py-1 bg-red-600 text-white rounded-lg text-xs font-black uppercase">Month 01 Full Plan</span>
+                            <p class="text-[10px] text-slate-400 font-bold mt-1">Calorie Target: ~2,036 kcal/day</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-sm font-black uppercase tracking-wider text-white mb-3"><i class="fa-solid fa-table text-red-500 mr-2"></i> Month 1 Weekly Macro Summary</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-xs border-collapse border border-slate-800 rounded-xl overflow-hidden">
+                                <thead>
+                                    <tr class="bg-slate-950 text-white font-black uppercase border-b border-slate-800">
+                                        <th class="p-3">Week</th>
+                                        <th class="p-3">Target Kcal</th>
+                                        <th class="p-3">Protein</th>
+                                        <th class="p-3">Carbs</th>
+                                        <th class="p-3">Fats</th>
+                                        <th class="p-3">Fiber</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="font-medium text-slate-300">
+                                    <tr class="border-b border-slate-800/60 hover:bg-slate-800/50">
+                                        <td class="p-3 font-bold text-white">Week 01: Gut Reset</td>
+                                        <td class="p-3 font-black text-amber-400">2,066 kcal</td>
+                                        <td class="p-3">159.6g</td>
+                                        <td class="p-3">241.0g</td>
+                                        <td class="p-3">48.1g</td>
+                                        <td class="p-3">28.9g</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800/60 hover:bg-slate-800/50">
+                                        <td class="p-3 font-bold text-white">Week 02: Fermented Staples</td>
+                                        <td class="p-3 font-black text-orange-400">1,996 kcal</td>
+                                        <td class="p-3">158.0g</td>
+                                        <td class="p-3">230.5g</td>
+                                        <td class="p-3">44.8g</td>
+                                        <td class="p-3">25.8g</td>
+                                    </tr>
+                                    <tr class="border-b border-slate-800/60 hover:bg-slate-800/50">
+                                        <td class="p-3 font-bold text-white">Week 03: Ancient Grains</td>
+                                        <td class="p-3 font-black text-emerald-400">1,957 kcal</td>
+                                        <td class="p-3">157.7g</td>
+                                        <td class="p-3">219.4g</td>
+                                        <td class="p-3">45.0g</td>
+                                        <td class="p-3">26.3g</td>
+                                    </tr>
+                                    <tr class="hover:bg-slate-800/50">
+                                        <td class="p-3 font-bold text-white">Week 04: Peak Reset</td>
+                                        <td class="p-3 font-black text-red-400">2,117 kcal</td>
+                                        <td class="p-3">163.3g</td>
+                                        <td class="p-3">248.6g</td>
+                                        <td class="p-3">48.7g</td>
+                                        <td class="p-3">29.3g</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+            `;
+
+            Object.keys(weeks).forEach(weekKey => {
+                const w = weeks[weekKey];
+                html += `
+                    <div class="pt-6 border-t border-slate-800">
+                        <div class="flex justify-between items-center mb-2">
+                            <h3 class="text-base font-black text-white uppercase tracking-wide flex items-center gap-2">
+                                <i class="fa-solid fa-bookmark text-red-500"></i> ${w.title}
+                            </h3>
+                            <span class="text-xs font-bold bg-slate-800 text-slate-300 px-3 py-1 rounded-full border border-slate-700">${w.subtitle}</span>
+                        </div>
+                        <p class="text-xs text-slate-400 mb-4 italic">${w.focus}</p>
+
+                        <div class="space-y-3">
+                            ${w.meals.map(m => {
+                                if (m.isTotal) return '';
+                                return `
+                                    <div class="p-4 rounded-xl border border-slate-800 bg-slate-950/60">
+                                        <div class="flex justify-between items-center mb-2">
+                                            <span class="font-black text-xs text-white uppercase flex items-center gap-2">
+                                                <i class="${m.icon} text-red-500"></i> ${m.time}
+                                            </span>
+                                            <span class="text-[10px] font-bold text-slate-400">
+                                                ${m.macros.p} Pro • ${m.macros.c} Carb • ${m.macros.f} Fat • ${m.macros.kcal} kcal
+                                            </span>
+                                        </div>
+                                        <ul class="text-xs space-y-1 text-slate-300">
+                                            ${m.items.map(i => `
+                                                <li class="flex justify-between">
+                                                    <span>• ${i.name}</span>
+                                                    <span class="font-bold text-slate-400">${i.quantity}</span>
+                                                </li>
+                                            `).join('')}
+                                        </ul>
+                                    </div>
+                                `;
+                            }).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            docBody.innerHTML = html;
+        }
+
+        // Modals & Navigation Helpers
+        function toggleGroceryModal() {
+            document.getElementById('grocery-modal').classList.toggle('hidden');
+        }
+
+        function togglePreviewModal() {
+            const modal = document.getElementById('preview-modal');
+            modal.classList.toggle('hidden');
+            if (!modal.classList.contains('hidden')) {
+                renderFullDocumentPreview();
+            }
+        }
+
+        function openFoodPreview(rawName, rawQty, rawLink) {
+            const name = decodeURIComponent(rawName);
+            const qty = decodeURIComponent(rawQty);
+            const link = decodeURIComponent(rawLink);
+
+            document.getElementById('food-modal-title').innerText = name;
+            document.getElementById('food-modal-qty').innerText = qty;
+            
+            let tip = "Weigh portions cooked as indicated. Stick strictly to 1 tsp (5g) Ghee or Coconut Oil for preparation.";
+            if (name.toLowerCase().includes('egg')) {
+                tip = "Scramble as Muttai Podimas or Egg Kalaki with green chilies, black pepper, and curry leaves for authentic South Indian flavor.";
+            } else if (name.toLowerCase().includes('rasam')) {
+                tip = "Drink 1 bowl of warm Pepper Tamarind Rasam after dinner to stimulate natural digestive acid production.";
+            } else if (name.toLowerCase().includes('ragi')) {
+                tip = "Ragi millet is rich in calcium and iron. Cook dosas or malt with a pinch of cumin and mustard seeds.";
+            } else if (name.toLowerCase().includes('rice')) {
+                tip = "Eat Sona Masoori rice warm for effortless digestion and rapid muscle glycogen restoration.";
+            }
+
+            document.getElementById('food-modal-tip').innerText = tip;
+            document.getElementById('food-modal-yt').href = `https://www.youtube.com/results?search_query=${encodeURIComponent(link)}`;
+            document.getElementById('food-preview-modal').classList.remove('hidden');
+        }
+
+        function closeFoodModal() {
+            document.getElementById('food-preview-modal').classList.add('hidden');
+        }
+
+        function setActiveLink(view) {
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            const activeNav = document.querySelector(`.nav-link[data-view="${view}"]`);
+            if (activeNav) activeNav.classList.add('active');
+
+            document.querySelectorAll('.mobile-tab').forEach(tab => tab.classList.remove('active'));
+            const activeTab = document.querySelector(`.mobile-tab[data-view="${view}"]`);
+            if (activeTab) activeTab.classList.add('active');
+        }
+
+        function closeMobileMenu() {
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.add('hidden');
+            document.body.style.overflow = '';
+        }
+
+        // Global Event Listener
+        document.addEventListener('click', (e) => {
+            // View Navigation
+            const navBtn = e.target.closest('[data-view]');
+            if (navBtn) {
+                const view = navBtn.dataset.view;
+                if (view) {
+                    if (view === 'dashboard') renderDashboard();
+                    else if (view === 'keyNotes') renderKeyNotes();
+                    else if (view === 'programs') renderProgramsPage();
+                    else if (view === 'contact') renderContactPage();
+                    else if (view.startsWith('week')) renderWeek(view);
+                    
+                    setActiveLink(view);
+                    closeMobileMenu();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+                return;
+            }
+
+            // Hero preview triggers
+            if (e.target.closest('#btn-hero-preview') || e.target.closest('#btn-phase-preview') || e.target.closest('#btn-fab-preview')) {
+                togglePreviewModal();
+                return;
+            }
+
+            if (e.target.closest('#btn-hero-grocery')) {
+                toggleGroceryModal();
+                return;
+            }
+
+            // Meal Done Toggle
+            const doneBtn = e.target.closest('.btn-toggle-done');
+            if (doneBtn) {
+                const key = doneBtn.dataset.doneKey;
+                completedMeals[key] = !completedMeals[key];
+                updateCompletedMealsHUD();
+                const weekKey = key.split('_')[0];
+                renderWeek(weekKey);
+                return;
+            }
+
+            // Portion Scale Toggle
+            const scaleBtn = e.target.closest('.btn-change-scale');
+            if (scaleBtn) {
+                const key = scaleBtn.dataset.scaleKey;
+                let val = parseFloat(scaleBtn.dataset.scaleVal) || 1.0;
+                val = Math.max(0.5, Math.min(2.0, val));
+                portionScales[key] = val;
+                const weekKey = key.split('_')[0];
+                renderWeek(weekKey);
+                return;
+            }
+
+            // Swap Meals Toggle
+            const swapBtn = e.target.closest('.btn-toggle-swap');
+            if (swapBtn) {
+                const key = swapBtn.dataset.swapKey;
+                activeSwaps[key] = !activeSwaps[key];
+                const weekKey = key.split('_')[0];
+                renderWeek(weekKey);
+                return;
+            }
+
+            // Food info modal trigger
+            const infoBtn = e.target.closest('.btn-food-info');
+            if (infoBtn) {
+                openFoodPreview(infoBtn.dataset.foodName, infoBtn.dataset.foodQty, infoBtn.dataset.foodLink);
+                return;
+            }
+        });
+
+        // Specific Button Listeners
+        document.getElementById('btn-mobile-grocery').addEventListener('click', toggleGroceryModal);
+        document.getElementById('btn-sidebar-grocery').addEventListener('click', toggleGroceryModal);
+        document.getElementById('btn-close-grocery').addEventListener('click', toggleGroceryModal);
+        document.getElementById('btn-print-grocery').addEventListener('click', () => window.print());
+
+        document.getElementById('btn-mobile-preview').addEventListener('click', togglePreviewModal);
+        document.getElementById('btn-sidebar-preview').addEventListener('click', togglePreviewModal);
+        document.getElementById('btn-close-preview').addEventListener('click', togglePreviewModal);
+        document.getElementById('btn-print-preview').addEventListener('click', () => window.print());
+
+        document.getElementById('btn-close-food-modal').addEventListener('click', closeFoodModal);
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.remove('-translate-x-full');
+            overlay.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        });
+
+        sidebarClose.addEventListener('click', closeMobileMenu);
+        overlay.addEventListener('click', closeMobileMenu);
+
+        // Water Logging Functionality
+        const addWaterBtn = document.getElementById('btn-add-water');
+        const fabWaterBtn = document.getElementById('btn-fab-water');
+        
+        function addWater() {
+            waterLogs = Math.min(waterLogs + 0.5, 4.0);
+            document.getElementById('water-count-text').innerText = `${waterLogs.toFixed(1)} / 4 L`;
+            document.getElementById('water-progress').style.width = `${(waterLogs / 4.0) * 100}%`;
+        }
+
+        if (addWaterBtn) addWaterBtn.addEventListener('click', addWater);
+        if (fabWaterBtn) fabWaterBtn.addEventListener('click', addWater);
+
+        document.getElementById('btn-reset-water').addEventListener('click', () => {
+            waterLogs = 0;
+            document.getElementById('water-count-text').innerText = `0 / 4 L`;
+            document.getElementById('water-progress').style.width = `0%`;
+        });
+
+        // Initialize App on DOM Load
+        document.addEventListener('DOMContentLoaded', () => {
+            setActiveLink('dashboard');
+            renderDashboard();
+            updateCompletedMealsHUD();
+        });
+    </script>
+</body>
+</html>
